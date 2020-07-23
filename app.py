@@ -54,3 +54,8 @@ def add_save():
     save = Save.query.get(new_save.id)
 
     return save_schema.jsonify(save)
+
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
