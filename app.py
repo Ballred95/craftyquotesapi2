@@ -36,3 +36,21 @@ class SaveSchema(ma.Schema):
 
 save_schema = SaveSchema()
 saves_schema = SaveSchema(many=True)
+
+
+@app.route('/saved', methods=["POST"])
+def add_save():
+    name = request.json['name']
+    imgsrc = request.json['imgsrc']
+    text_content = request.json['text_content']
+    text_align = request.json['text_align']
+    clipart = request.json['clipart']
+
+    new_save = Save(name, imgsrc, text_content, text_align, clipart)
+
+    db.session.add(new_save)
+    db.session.commit()
+
+    save = Save.query.get(new_save.id)
+
+    return save_schema.jsonify(save)
