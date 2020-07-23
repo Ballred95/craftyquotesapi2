@@ -56,6 +56,26 @@ def add_save():
     return save_schema.jsonify(save)
 
 
+
+@app.route('/saved/<id>', methods=['PUT'])
+def save_update(id):
+    save = Save.query.get(id)
+    name = request.json['name']
+    imgsrc = request.json['imgsrc']
+    text_content = request.json['text_content']
+    text_align = request.json['text_align']
+    clipart = request.json['clipart']
+
+    save.name = name
+    save.imgsrc = imgsrc
+    save.text_content = text_content
+    save.text_align = text_align
+    save.clipart = clipart
+
+    db.session.commit()
+    return save_schema.jsonify(save)
+
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
