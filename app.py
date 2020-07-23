@@ -76,6 +76,13 @@ def save_update(id):
     return save_schema.jsonify(save)
 
 
+@app.route('/saved', methods=['GET'])
+def get_saved():
+    all_saves = Save.query.all()
+    result = saves_schema.dump(all_saves)
+    return jsonify(result)
+
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
